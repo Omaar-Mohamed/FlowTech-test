@@ -44,7 +44,7 @@ class RegistrationFragment : Fragment() {
 
         // Observe authState
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            authViewModel.authState.collect { state ->
+            authViewModel.registerState.collect { state ->
                 when (state) {
                     is AuthState.Loading -> {
                         // Show a progress bar or loading dialog
@@ -62,6 +62,8 @@ class RegistrationFragment : Fragment() {
                     AuthState.SignedOut -> {
                         // Handle sign out state if needed
                     }
+
+                    else -> {}
                 }
             }
         }

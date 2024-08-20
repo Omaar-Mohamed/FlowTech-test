@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
 
         // Observe authState
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            authViewModel.authState.collect { state ->
+            authViewModel.loginState.collect { state ->
                 when (state) {
                     is AuthState.Loading -> {
                         // Show a progress bar or loading dialog
@@ -50,16 +50,16 @@ class LoginFragment : Fragment() {
                     }
                     is AuthState.Success -> {
                         // Navigate to the next screen
-                        Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "login success", Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     }
                     is AuthState.Error -> {
                         // Show an error message
                         Toast.makeText(requireContext(), "Registration failed: ${state.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
-                    AuthState.SignedOut -> {
-                        // Handle sign out state if needed
-                    }
+
+
+                    else -> {}
                 }
             }
         }

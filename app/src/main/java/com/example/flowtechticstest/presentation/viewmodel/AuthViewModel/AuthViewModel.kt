@@ -14,37 +14,48 @@ class AuthViewModel(
     private val authRepo: AuthRepo
 ) : ViewModel() {
 
-    private val _authState = MutableStateFlow<AuthState>(AuthState.SignedOut)
-    val authState: StateFlow<AuthState> get() = _authState
+    private val _loginState = MutableStateFlow<AuthState>(AuthState.defult)
+    val loginState: StateFlow<AuthState> get() = _loginState
+
+    private val _logoutState = MutableStateFlow<AuthState>(AuthState.defult)
+    val logoutState: StateFlow<AuthState> get() = _logoutState
+
+    private val _registerState = MutableStateFlow<AuthState>(AuthState.defult)
+    val registerState: StateFlow<AuthState> get() = _registerState
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
-            _authState.value = AuthState.Loading
+            _loginState.value = AuthState.Loading
             try {
                 val user = authRepo.signInWithEmail(email, password)
-                _authState.value = AuthState.Success(user)
+                _loginState.value = AuthState.Success(user)
             } catch (e: Exception) {
-                _authState.value = AuthState.Error(e)
+                _loginState.value = AuthState.Error(e)
             }
         }
     }
 
     fun signOut() {
         viewModelScope.launch {
-            authRepo.signOut()
-            _authState.value = AuthState.SignedOut
+            _logoutState.value = AuthState.Loading
+            try {
+                authRepo.signOut()
+                _logoutState.value = AuthState.SignedOut
+            } catch (e: Exception) {
+                _logoutState.value = AuthState.Error(e)
+            }
         }
     }
 
     fun register(userName: String, age: Int, email: String, password: String) {
         viewModelScope.launch {
-            _authState.value = AuthState.Loading
+            _registerState.value = AuthState.Loading
             try {
                 val user = authRepo.register(userName, age, email, password)
-                _authState.value = AuthState.Success(user)
+                _registerState.value = AuthState.Success(user)
             } catch (e: Exception) {
-                _authState.value = AuthState.Error(e)
-                Log.i("regester error", "register: " + e.message)
+                _registerState.value = AuthState.Error(e)
+                Log.i("register error", "register: " + e.message)
             }
         }
     }
