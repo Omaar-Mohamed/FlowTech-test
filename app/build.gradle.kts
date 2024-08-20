@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -72,6 +73,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:4.2.0")
     // Jackson
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
+    implementation(libs.firebase.auth)
 
     // Testing
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")

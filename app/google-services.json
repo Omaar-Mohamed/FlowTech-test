@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1048226418218",
+    "project_id": "flow-techtics-test",
+    "storage_bucket": "flow-techtics-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048226418218:android:e17f894277bbf96ca17d53",
+        "android_client_info": {
+          "package_name": "com.example.flowtechticstest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD79d-LNx6t-X0GtmFjqfX46akIIrV81nw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.flowtechticstest.RegistrationFragment"
+        android:name="com.example.flowtechticstest.presentation.ui.Registration.fragment.RegistrationFragment"
         android:label="fragment_regestration"
         tools:layout="@layout/fragment_regestration" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.flowtechticstest.LoginFragment"
+        android:name="com.example.flowtechticstest.presentation.ui.Registration.fragment.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

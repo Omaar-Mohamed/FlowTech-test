@@ -45,12 +45,23 @@
         android:textSize="16sp"
         android:layout_marginBottom="16dp"/>
 
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Your age"
+        android:padding="16dp"
+        android:background="@drawable/edit_text_background"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"/>
 
     <EditText
         android:id="@+id/et_Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Your Phone Number"
+        android:hint="Enter Your Password"
         android:padding="16dp"
         android:background="@drawable/edit_text_background"
         android:textColor="#333333"
