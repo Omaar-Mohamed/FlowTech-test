@@ -3,11 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".presentation.ui.home.fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-<Button
-    android:layout_width="110dp"
-    android:layout_height="110dp"
-    android:text="Home Fragment"/>
+
 </FrameLayout>
