@@ -30,7 +30,7 @@ class AuthViewModel(
             try {
                 val user = authRepo.signInWithEmail(email, password)
                 _loginState.value = AuthState.Success(user)
-                userName = user?.email.toString()
+                userName = user?.email?.substringBefore('@') ?: "no name found" // Only keep username part
             } catch (e: Exception) {
                 _loginState.value = AuthState.Error(e)
             }

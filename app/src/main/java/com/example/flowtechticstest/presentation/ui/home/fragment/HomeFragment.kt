@@ -131,7 +131,7 @@ class HomeFragment : Fragment() {
                 authViewModel.signOut()
 //                findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
             }
-        binding.tvName.text = "Welcome ${authViewModel.userName.substringBefore("@")}"
+        binding.tvName.text = "Rick and Morty Characters"
 
             lifecycleScope.launch {
                 authViewModel.logoutState.collectLatest { state ->
