@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 object AppRemoteDataSourseImpl: AppReomteDataSourse{
-    override suspend fun getCharacters(): Flow<CharacterResponse> = flow {
-        val characterResponse = retrofitInstance.create(NetworkServices::class.java).getCharacters()
+    override suspend fun getCharacters(page:Int): Flow<CharacterResponse> = flow {
+        val characterResponse = retrofitInstance.create(NetworkServices::class.java).getCharacters(page)
         emit(characterResponse)
     }
 }

@@ -4,5 +4,5 @@ import com.example.flowtechticstest.data.model.characters_response.CharacterResp
 import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepo {
-    suspend fun getCharacters(): Flow<CharacterResponse>
+    suspend fun getCharacters(Page:Int): Flow<CharacterResponse>
 }

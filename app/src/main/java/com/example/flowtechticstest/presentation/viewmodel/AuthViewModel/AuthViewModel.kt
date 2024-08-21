@@ -22,6 +22,7 @@ class AuthViewModel(
 
     private val _registerState = MutableStateFlow<AuthState>(AuthState.defult)
     val registerState: StateFlow<AuthState> get() = _registerState
+    var userName = ""
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
@@ -29,11 +30,21 @@ class AuthViewModel(
             try {
                 val user = authRepo.signInWithEmail(email, password)
                 _loginState.value = AuthState.Success(user)
+                userName = user?.email.toString()
             } catch (e: Exception) {
                 _loginState.value = AuthState.Error(e)
             }
         }
     }
+    fun getUsername(): String? {
+        val authState = _loginState.value
+        return if (authState is AuthState.Success) {
+            authState.user?.email // Assumes the user object has a `username` field
+        } else {
+            "no name found"
+        }
+    }
+
 
     fun signOut() {
         viewModelScope.launch {

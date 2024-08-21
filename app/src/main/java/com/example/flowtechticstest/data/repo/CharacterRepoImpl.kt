@@ -17,7 +17,7 @@ class CharacterRepoImpl(
             return INSTANCE!!
         }
     }
-    override suspend fun getCharacters(): Flow<CharacterResponse> {
-        return appRemoteDataSourse.getCharacters()
+    override suspend fun getCharacters(page:Int): Flow<CharacterResponse> {
+        return appRemoteDataSourse.getCharacters(page)
     }
 }

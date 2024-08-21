@@ -46,15 +46,17 @@ class LoginFragment : Fragment() {
                 when (state) {
                     is AuthState.Loading -> {
                         // Show a progress bar or loading dialog
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                        binding.progressCircular.visibility = View.VISIBLE
                     }
                     is AuthState.Success -> {
                         // Navigate to the next screen
                         Toast.makeText(requireContext(), "login success", Toast.LENGTH_SHORT).show()
+                        binding.progressCircular.visibility = View.GONE
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     }
                     is AuthState.Error -> {
                         // Show an error message
+                        binding.progressCircular.visibility = View.GONE
                         Toast.makeText(requireContext(), "Registration failed: ${state.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
 

@@ -78,6 +78,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
     // paging
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+    implementation(libs.androidx.swiperefreshlayout)
     // Testing
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
