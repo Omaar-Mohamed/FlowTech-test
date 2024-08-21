@@ -74,7 +74,10 @@ dependencies {
     // Jackson
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
     implementation(libs.firebase.auth)
-
+// serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+    // paging
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
     // Testing
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
     testImplementation("androidx.arch.core:core-testing:2.1.0")

@@ -1,6 +1,8 @@
 package com.example.flowtechticstest.data.model.characters_response
 
+import kotlinx.serialization.SerialName
+
 data class CharacterResponse(
     val info: Info,
-    val results: List<Result>
+    @SerialName("results") val results: List<CharacterResult>
 )

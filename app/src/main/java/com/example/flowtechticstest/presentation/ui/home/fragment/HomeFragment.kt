@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.flowtechticstest.R
 import com.example.flowtechticstest.data.authentication.AuthRepositoryImpl
 import com.example.flowtechticstest.data.authentication.AuthState
@@ -18,6 +19,7 @@ import com.example.flowtechticstest.data.repo.CharactersRepo
 import com.example.flowtechticstest.data.source.remote.ApiState
 import com.example.flowtechticstest.data.source.remote.AppRemoteDataSourseImpl
 import com.example.flowtechticstest.databinding.FragmentHomeBinding
+import com.example.flowtechticstest.presentation.ui.home.adapter.CharacterAdapter
 import com.example.flowtechticstest.presentation.viewmodel.AuthViewModel.AuthViewModel
 import com.example.flowtechticstest.presentation.viewmodel.AuthViewModel.AuthViewModelFactory
 import com.example.flowtechticstest.presentation.viewmodel.CharactersViewModel.CharactersViewModel
@@ -31,41 +33,53 @@ class HomeFragment : Fragment() {
     lateinit var viewModelFactory: CharactersViewModelFactory
     lateinit var authViewModel: AuthViewModel
     lateinit var authViewModelFactory: AuthViewModelFactory
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            // Inflate the layout for this fragment
-            binding = FragmentHomeBinding.inflate(inflater, container, false)
-            authViewModelFactory = AuthViewModelFactory(AuthRepositoryImpl)
-            authViewModel = ViewModelProvider(this, authViewModelFactory).get(AuthViewModel::class.java)
+    lateinit var characterAdapter: CharacterAdapter
+    lateinit var gridLayoutManager: GridLayoutManager
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-            viewModelFactory = CharactersViewModelFactory(CharacterRepoImpl(
-                AppRemoteDataSourseImpl
-            ))
-            viewModel = ViewModelProvider(this, viewModelFactory).get(CharactersViewModel::class.java)
-            viewModel.getCharacters()
-            lifecycleScope.launch {
-                viewModel.allCharacters.collectLatest {
-                    when (viewModel.allCharacters.value) {
-                        is ApiState.Loading -> {
-                            // Show a progress bar or loading dialog
-                            Toast.makeText(requireContext(), "Loading data", Toast.LENGTH_SHORT).show()
-                        }
-                        is ApiState.Success -> {
-                            // Navigate to the next screen
-                            Toast.makeText(requireContext(), "data fetched succfully", Toast.LENGTH_SHORT).show()
-                            Log.i("charactersdata", "onCreateView: " + viewModel.allCharacters.value)
-                        }
-                        is ApiState.Failure -> {
-                            // Show an error message
-                            Toast.makeText(requireContext(), "Registration failed: ", Toast.LENGTH_SHORT).show()
-                        }
+        // Initialize adapter and layout manager
+        characterAdapter = CharacterAdapter()
+        gridLayoutManager = GridLayoutManager(requireContext(), 2)
+
+        // Set up RecyclerView
+        binding.recyclerView.apply {
+            layoutManager = gridLayoutManager
+            adapter = characterAdapter
+        }
+
+        authViewModelFactory = AuthViewModelFactory(AuthRepositoryImpl)
+        authViewModel = ViewModelProvider(this, authViewModelFactory).get(AuthViewModel::class.java)
+
+        viewModelFactory = CharactersViewModelFactory(CharacterRepoImpl(AppRemoteDataSourseImpl))
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CharactersViewModel::class.java)
+        viewModel.getCharacters()
+
+        lifecycleScope.launch {
+            viewModel.allCharacters.collectLatest { state ->
+                when (state) {
+                    is ApiState.Loading -> {
+                        // Show a progress bar or loading dialog
+                        Toast.makeText(requireContext(), "Loading data", Toast.LENGTH_SHORT).show()
                     }
-
+                    is ApiState.Success -> {
+                        // Update the adapter with the data
+                        characterAdapter.submitList(state.data.results)
+                        Toast.makeText(requireContext(), "Data fetched successfully", Toast.LENGTH_SHORT).show()
+                    }
+                    is ApiState.Failure -> {
+                        // Show an error message
+                        Toast.makeText(requireContext(), "Data fetch failed", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
+        }
+
             binding.toolbarIcon.setOnClickListener {
                 authViewModel.signOut()
 //                findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
