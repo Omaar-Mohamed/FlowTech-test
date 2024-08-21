@@ -29,10 +29,7 @@ This is a Rick and Morty character display application that showcases characters
    - **ViewModels**: Manage UI-related data and business logic, interact with UseCases.
    - **Fragments/Activities**: Display data to the user and handle user interactions.
 
-2. **Domain Layer**
-   - **UseCases**: Contains business logic and interacts with the repository layer.
-
-3. **Data Layer**
+2. **Data Layer**
    - **Repositories**: Handle data operations, interact with remote and local data sources.
    - **Remote Data Sources**: Fetch data from remote servers (e.g., Rick and Morty API).
 
@@ -43,10 +40,3 @@ This is a Rick and Morty character display application that showcases characters
 - Android Studio
 - An active Firebase project
 
-### Firebase Setup
-
-1. Go to the [Firebase Console](https://console.firebase.google.com/).
-2. Create a new Firebase project or use an existing one.
-3. Enable Firebase Authentication by following the [Firebase Authentication Setup Guide](https://firebase.google.com/docs/auth/android/start).
-4. Download the `google-services.json` file and place it in the `app/` directory of your project.
-5. Add Firebase dependencies to your `build.gradle` files.
